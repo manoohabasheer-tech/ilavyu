@@ -18,7 +18,7 @@ body{
   overflow:hidden;
 }
 
-/* floating emojis */
+/* floating emojis outside card */
 .emoji{
   position:absolute;
   animation:floatUp 8s infinite linear;
@@ -90,7 +90,7 @@ h2{
 #no{
   background:#fff0f6;
   color:#ff4d88;
-  position:static;
+  position:absolute; /* will move dynamically inside card */
 }
 
 #page2{display:none;}
@@ -149,15 +149,19 @@ img{
   <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
 </div>
 
-<!-- floating emojis -->
+<!-- floating emojis outside card -->
 <script>
 const emojis=["💗","💖","💕","💘","🥰","😚","🎀","💝","🌸","🐻","🫶"];
 for(let i=0;i<40;i++){
   let e=document.createElement("div");
   e.className="emoji";
   e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*100+"%";
-  e.style.top=Math.random()*100+"%";
+  
+  // place outside card (top/bottom or sides)
+  const side=Math.random()<0.5 ? -50 : window.innerHeight+50; // above or below view
+  e.style.top=(side + Math.random()*100)+"px";
+  e.style.left=Math.random()*window.innerWidth+"px";
+  
   e.style.fontSize=(15+Math.random()*20)+"px";
   e.style.animationDelay=(Math.random()*6)+"s";
   e.style.opacity=(0.5+Math.random()*0.5);
@@ -179,7 +183,7 @@ function typeEffect(){
 }
 typeEffect();
 
-/* No button dodge */
+/* No button dodge INSIDE card */
 const noTexts=[
   "pls no😭","don’t do this😔","i’ll cry🥺","that hurt💔",
   "click yes😡","nononono🥹","why u like this😭",
@@ -189,10 +193,12 @@ function moveNo(){
   const noBtn=document.getElementById("no");
   const card=document.getElementById("page1");
   noBtn.innerText=noTexts[Math.floor(Math.random()*noTexts.length)];
-  const maxX=card.clientWidth-noBtn.offsetWidth;
-  const maxY=card.clientHeight-noBtn.offsetHeight;
-  noBtn.style.left=Math.random()*maxX+"px";
-  noBtn.style.top=Math.random()*maxY+"px";
+
+  const maxX = card.clientWidth - noBtn.offsetWidth;
+  const maxY = card.clientHeight - noBtn.offsetHeight;
+  
+  noBtn.style.left = Math.random()*maxX + "px";
+  noBtn.style.top = Math.random()*maxY + "px";
 }
 
 /* show page 2 */
