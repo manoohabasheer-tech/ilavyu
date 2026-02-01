@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Always You 💖</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+body {
+  background: linear-gradient(135deg,#ffd1dc,#ffe6f0);
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+  overflow:hidden;
+}
+.heart{position:absolute;font-size:18px;animation:float 6s infinite ease-in-out;opacity:0.7;}
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-25px);}100%{transform:translateY(0);}}
+.card{background:rgba(255,255,255,0.97);padding:35px;border-radius:28px;text-align:center;width:360px;height:360px;position:relative;box-shadow:0 18px 45px rgba(255,105,180,0.45);animation:pop 0.6s ease;}
+@keyframes pop{0%{transform:scale(0.7);opacity:0;}100%{transform:scale(1);opacity:1;}}
+.pookie{font-size:48px;animation:bounce 1.5s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+h2{font-family:'Pacifico',cursive;color:#ff4d88;line-height:1.4;min-height:110px;}
+button{padding:12px 26px;border:none;border-radius:30px;font-size:16px;cursor:pointer;transition:transform 0.2s ease;}
+button:hover{transform:scale(1.15);}
+#yes{background:linear-gradient(135deg,#ff4d88,#ff85b3);color:white;box-shadow:0 6px 15px rgba(255,77,136,0.5);}
+#no{background:#fff0f6;color:#ff4d88;position:absolute;left:220px;top:255px;}
+#page2{display:none;}
+.cringe{font-family:'Pacifico',cursive;color:#ff4d88;font-size:22px;}
+.sub-cringe{font-size:14px;color:#ff6fa5;margin-top:10px;}
+img{width:220px;margin-top:15px;border-radius:22px;}
+.explode{animation:explode 0.8s ease-in-out;}
+@keyframes explode{0%{transform:scale(1);}50%{transform:scale(1.25) rotate(4deg);}100%{transform:scale(1);}}
+</style>
+</head>
+<body>
+
+<!-- floating hearts -->
+<span class="heart" style="top:10%; left:10%;">💖</span>
+<span class="heart" style="top:20%; left:20%;">💕</span>
+<span class="heart" style="top:75%; left:30%;">💗</span>
+<span class="heart" style="top:65%; left:40%;">🥰</span>
+<span class="heart" style="top:35%; left:50%;">💘</span>
+<span class="heart" style="top:90%; left:60%;">😚</span>
+<span class="heart" style="top:10%; left:70%;">💖</span>
+<span class="heart" style="top:20%; left:80%;">💕</span>
+<span class="heart" style="top:75%; left:90%;">💗</span>
+<span class="heart" style="top:65%; left:55%;">🥰</span>
+<span class="heart" style="top:35%; left:45%;">💘</span>
+<span class="heart" style="top:90%; left:75%;">😚</span>
+
+<!-- PAGE 1 -->
+<div class="card" id="page1">
+  <div class="pookie">🐻‍❄️💗</div>
+  <h2 id="typeText"></h2>
+  <button id="yes" onclick="showPage2()">Yes 🥹</button>
+  <button id="no" onmouseover="moveNo()">No 😳</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="card" id="page2">
+  <div class="pookie">💞🫶</div>
+  <h2 class="cringe">
+    I laaav yuu shuttumaniiee🥹💗 <br>
+    I don’t say this enough, but you’re my favorite place to be 🫠💗<br>
+    In every mood, every mess, every version of me — it’s you
+  </h2>
+  <p class="sub-cringe">
+    my always, my constant💞 <br>
+    my once-in-a-lifetime🥹🫶
+  </p>
+  <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
+</div>
+
+<script>
+/* typewriter */
+const text="Aukareeyyy🥹💞\n You are my today, tomorrow\nand alwayyysss🫠🫠";
+let i=0;
+function typeEffect(){if(i<text.length){document.getElementById("typeText").innerHTML+=text.charAt(i)==="\n"? "<br>":text.charAt(i);i++;setTimeout(typeEffect,70);}}
+typeEffect();
+
+/* No button dodge */
+const noTexts=["pls no😭","why would you😔","i’ll cry🥺","that hurts💔","okay sorry😭","YES ONLY😡","pls no😭","click yess🥹","nonono🥺","aaba💔","aayi sorry😭","thall bena😡"];
+function moveNo(){const noBtn=document.getElementById("no");const card=document.getElementById("page1");noBtn.innerText=noTexts[Math.floor(Math.random()*noTexts.length)];const maxX=card.clientWidth-noBtn.offsetWidth;const maxY=card.clientHeight-noBtn.offsetHeight;noBtn.style.left=Math.random()*maxX+"px";noBtn.style.top=Math.random()*maxY+"px";}
+
+/* showPage2 */
+function showPage2(){
+  document.body.classList.add("explode");
+  document.getElementById("page1").style.display="none";
+  document.getElementById("page2").style.display="block";
+}
+</script>
+
+</body>
+</html>
