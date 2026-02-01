@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Always You 💗</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
 
 *{box-sizing:border-box;}
-
 body{
   margin:0;
   height:100vh;
@@ -20,17 +18,17 @@ body{
   overflow:hidden;
 }
 
-/* floating hearts */
-.heart{
+/* floating emojis */
+.emoji{
   position:absolute;
-  font-size:20px;
-  animation:floatUp 8s infinite;
+  animation:floatUp 8s infinite linear;
   opacity:0;
 }
 @keyframes floatUp{
-  0%{transform:translateY(0);opacity:0;}
+  0%{transform:translateY(0) rotate(0deg);opacity:0;}
   20%{opacity:0.8;}
-  100%{transform:translateY(-160px);opacity:0;}
+  50%{transform:translateY(-50px) rotate(20deg);}
+  100%{transform:translateY(-200px) rotate(360deg);opacity:0;}
 }
 
 /* card */
@@ -85,12 +83,11 @@ button:hover{transform:scale(1.15);}
   background:#fff0f6;
   color:#ff4d88;
   position:absolute;
-  left:220px;
   top:310px;
+  left:150px; /* start near Yes */
 }
 
 #page2{display:none;}
-
 .cringe{
   font-family:'Pacifico',cursive;
   font-size:22px;
@@ -100,7 +97,6 @@ button:hover{transform:scale(1.15);}
   font-size:14px;
   color:#ff6fa5;
 }
-
 img{
   width:230px;
   margin-top:10px;
@@ -120,34 +116,6 @@ img{
 
 <body>
 
-  <!-- floating hearts -->
-<span class="heart" style="top:10%; left:10%;">💖</span>
-<span class="heart" style="top:20%; left:20%;">💕</span>
-<span class="heart" style="top:75%; left:30%;">💗</span>
-<span class="heart" style="top:65%; left:40%;">🥰</span>
-<span class="heart" style="top:35%; left:50%;">💘</span>
-<span class="heart" style="top:90%; left:60%;">😚</span>
-<span class="heart" style="top:10%; left:70%;">💖</span>
-<span class="heart" style="top:20%; left:80%;">💕</span>
-<span class="heart" style="top:75%; left:90%;">💗</span>
-<span class="heart" style="top:65%; left:55%;">🥰</span>
-<span class="heart" style="top:35%; left:45%;">💘</span>
-<span class="heart" style="top:90%; left:75%;">😚</span>
-
-
-<!-- hearts -->
-<script>
-for(let i=0;i<30;i++){
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML=["💗","💖","💕","💘","🥰","😚"][Math.floor(Math.random()*6)];
-  h.style.left=Math.random()*100+"%";
-  h.style.bottom="-30px";
-  h.style.animationDelay=Math.random()*6+"s";
-  document.body.appendChild(h);
-}
-</script>
-
 <!-- PAGE 1 -->
 <div class="card" id="page1">
   <div class="pookie">🐻‍❄️💗</div>
@@ -161,7 +129,7 @@ for(let i=0;i<30;i++){
   <div class="pookie">🫶💞</div>
   <h2 class="cringe">
     I laaav yuu shuttumaniiee🥹💗<br>
-   I don’t say this enough,<br>
+    I don’t say this enough,<br>
     but you’re my favorite place to be🫠💗
   </h2>
   <p class="sub">
@@ -170,6 +138,22 @@ for(let i=0;i<30;i++){
   </p>
   <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
 </div>
+
+<!-- floating emojis -->
+<script>
+const emojis=["💗","💖","💕","💘","🥰","😚","🎀","💝","🌸","🐻","🫶"];
+for(let i=0;i<40;i++){
+  let e=document.createElement("div");
+  e.className="emoji";
+  e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left=Math.random()*100+"%";
+  e.style.top=Math.random()*100+"%"; // start anywhere on page
+  e.style.fontSize=(15+Math.random()*20)+"px";
+  e.style.animationDelay=(Math.random()*6)+"s";
+  e.style.opacity=(0.5+Math.random()*0.5);
+  document.body.appendChild(e);
+}
+</script>
 
 <script>
 /* typewriter */
@@ -185,7 +169,7 @@ function typeEffect(){
 }
 typeEffect();
 
-/* no button run away */
+/* No button dodge */
 const noTexts=[
   "pls no😭","don’t do this😔","i’ll cry🥺","that hurt💔",
   "click yes😡","nononono🥹","why u like this😭",
@@ -203,15 +187,16 @@ function moveNo(){
 
 /* show page 2 */
 function showLove(){
-  document.getElementById("page1").classList.add("explode");
+  const page1=document.getElementById("page1");
+  const page2=document.getElementById("page2");
+  page1.classList.add("explode");
   setTimeout(()=>{
-    document.getElementById("page1").style.display="none";
-    document.getElementById("page2").style.display="block";
-    document.getElementById("page2").classList.add("explode");
+    page1.style.display="none";
+    page2.style.display="block";
+    page2.classList.add("explode");
   },400);
 }
 </script>
 
 </body>
 </html>
-
