@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Always You 💗</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
 
 *{box-sizing:border-box;}
-
 body{
   margin:0;
   height:100vh;
@@ -20,22 +18,40 @@ body{
   overflow:hidden;
 }
 
+/* floating emojis */
+.emoji{
+  position:absolute;
+  animation:floatUp 8s infinite linear;
+  opacity:0;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0deg);opacity:0;}
+  20%{opacity:0.8;}
+  50%{transform:translateY(-50px) rotate(20deg);}
+  100%{transform:translateY(-200px) rotate(360deg);opacity:0;}
+}
+
+/* card */
 .card{
   width:380px;
   height:420px;
-  background:white;
+  background:rgba(255,255,255,0.97);
   border-radius:30px;
   padding:30px;
   text-align:center;
   box-shadow:0 20px 50px rgba(255,105,180,0.5);
+  animation:pop 0.6s ease;
   position:relative;
+}
+@keyframes pop{
+  0%{transform:scale(0.7);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
 }
 
 .pookie{
   font-size:50px;
   animation:bounce 1.6s infinite;
 }
-
 @keyframes bounce{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-12px);}
@@ -44,78 +60,56 @@ body{
 h2{
   font-family:'Pacifico',cursive;
   color:#ff4d88;
-  min-height:140px;
   line-height:1.5;
+  min-height:140px;
 }
 
-/* BUTTON AREA */
-.buttons{
-  display:flex;
-  margin-top:25px;
-  position:relative;
-}
-
-.yes-zone,.no-zone{
-  width:50%;
-  position:relative;
-  height:60px;
-}
-
-#yes{
+button{
   padding:12px 28px;
   border:none;
   border-radius:40px;
   font-size:16px;
   cursor:pointer;
+  transition:transform 0.2s ease;
+}
+button:hover{transform:scale(1.15);}
+
+#yes{
   background:linear-gradient(135deg,#ff4d88,#ff85b3);
   color:white;
   box-shadow:0 6px 16px rgba(255,77,136,0.5);
 }
-
-#yes:hover{transform:scale(1.1);}
-
 #no{
-  position:absolute;
-  padding:12px 26px;
-  border:none;
-  border-radius:40px;
-  font-size:16px;
-  cursor:pointer;
   background:#fff0f6;
   color:#ff4d88;
+  position:absolute;
+  top:310px;
+  left:200px; /* start near Yes */
 }
 
-/* PAGE 2 */
 #page2{display:none;}
-
 .cringe{
   font-family:'Pacifico',cursive;
   font-size:22px;
   color:#ff4d88;
 }
-
 .sub{
   font-size:14px;
   color:#ff6fa5;
 }
-
 img{
-  width:220px;
+  width:230px;
   margin-top:10px;
   border-radius:20px;
 }
 
-/* floating emojis */
-.emoji{
-  position:absolute;
-  animation:floatUp 8s infinite linear;
-  opacity:0;
+.explode{
+  animation:explode 0.8s ease-in-out;
 }
-
-@keyframes floatUp{
-  0%{transform:translateY(0);opacity:0;}
-  20%{opacity:0.8;}
-  100%{transform:translateY(-220px) rotate(360deg);opacity:0;}
+@keyframes explode{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.25) rotate(5deg);}
+  100%{transform:scale(1);}
 }
 </style>
 </head>
@@ -125,85 +119,82 @@ img{
 <!-- PAGE 1 -->
 <div class="card" id="page1">
   <div class="pookie">🐻‍❄️💗</div>
-
   <h2 id="typeText"></h2>
-
-  <div class="buttons">
-    <div class="yes-zone">
-      <button id="yes" onclick="showLove()">YESSS 🥹💞</button>
-    </div>
-
-    <div class="no-zone">
-      <button id="no" onmouseover="moveNo()">NO 😳</button>
-    </div>
-  </div>
+  <button id="yes" onclick="showLove()">YESSS🥹💞</button>
+  <button id="no" onmouseover="moveNo()">NO😳</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="card" id="page2">
   <div class="pookie">🫶💞</div>
-
   <h2 class="cringe">
     I laaav yuu shuttumaniiee🥹💗<br>
-    you’re my favorite place to be 🫠💗
+    I don’t say this enough,<br>
+    but you’re my favorite place to be🫠💗
   </h2>
-
   <p class="sub">
-    my always 💞<br>
-    my constant 🫶
+    my always, my constant💞<br>
+    my “I choose you” in every universe 🌍✨
   </p>
-
   <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
 </div>
 
+<!-- floating emojis -->
 <script>
-/* TYPEWRITER */
+const emojis=["💗","💖","💕","💘","🥰","😚","🎀","💝","🌸","🐻","🫶"];
+for(let i=0;i<40;i++){
+  let e=document.createElement("div");
+  e.className="emoji";
+  e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left=Math.random()*100+"%";
+  e.style.top=Math.random()*100+"%"; // start anywhere on page
+  e.style.fontSize=(15+Math.random()*20)+"px";
+  e.style.animationDelay=(Math.random()*6)+"s";
+  e.style.opacity=(0.5+Math.random()*0.5);
+  document.body.appendChild(e);
+}
+</script>
+
+<script>
+/* typewriter */
 const text="Aukareeyyy🥹💞\nYou are my today,\nmy tomorrow,\nand my alwaysssss 🫠💗";
 let i=0;
-
 function typeEffect(){
   if(i<text.length){
     document.getElementById("typeText").innerHTML +=
-      text[i]==="\n"?"<br>":text[i];
+      text.charAt(i)==="\n" ? "<br>" : text.charAt(i);
     i++;
     setTimeout(typeEffect,70);
   }
 }
 typeEffect();
 
-/* NO BUTTON MOVES ONLY IN ITS HALF */
-const noTexts=["pls no😭","don’t😔","i’ll cry🥺","that hurt💔","YES ONLY😡"];
-
+/* No button dodge */
+const noTexts=[
+  "pls no😭","don’t do this😔","i’ll cry🥺","that hurt💔",
+  "click yes😡","nononono🥹","why u like this😭",
+  "YES ONLY😤","aaba pls🥺","sorry sorry😭"
+];
 function moveNo(){
   const noBtn=document.getElementById("no");
-  const zone=document.querySelector(".no-zone");
-
+  const card=document.getElementById("page1");
   noBtn.innerText=noTexts[Math.floor(Math.random()*noTexts.length)];
-
-  const maxX = zone.clientWidth - noBtn.offsetWidth;
-  const maxY = zone.clientHeight - noBtn.offsetHeight;
-
-  noBtn.style.left = Math.random()*maxX + "px";
-  noBtn.style.top  = Math.random()*maxY + "px";
+  const maxX=card.clientWidth-noBtn.offsetWidth;
+  const maxY=card.clientHeight-noBtn.offsetHeight;
+  noBtn.style.left=Math.random()*maxX+"px";
+  noBtn.style.top=Math.random()*maxY+"px";
 }
 
-/* SHOW PAGE 2 */
+/* show page 2 */
 function showLove(){
-  document.getElementById("page1").style.display="none";
-  document.getElementById("page2").style.display="block";
-}
-
-/* FLOATING EMOJIS */
-const emojis=["💗","💖","💕","💘","🥰","😚","🎀","💝","🌸"];
-for(let i=0;i<30;i++){
-  let e=document.createElement("div");
-  e.className="emoji";
-  e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*window.innerWidth+"px";
-  e.style.bottom="-20px";
-  e.style.fontSize=(16+Math.random()*18)+"px";
-  e.style.animationDelay=Math.random()*6+"s";
-  document.body.appendChild(e);
+  const page1=document.getElementById("page1");
+  const page2=document.getElementById("page2");
+  page1.classList.add("explode");
+  setTimeout(()=>{
+    page1.style.display="none";
+    page2.style.display="block";
+    page2.classList.add("explode");
+  },400);
 }
 </script>
 
