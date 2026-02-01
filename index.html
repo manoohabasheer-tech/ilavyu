@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Always You 💗</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
 
@@ -23,12 +24,25 @@ body{
   position:absolute;
   animation:floatUp 8s infinite linear;
   opacity:0;
+  pointer-events:none;
 }
 @keyframes floatUp{
   0%{transform:translateY(0) rotate(0deg);opacity:0;}
-  20%{opacity:0.8;}
+  20%{opacity:0.9;}
   50%{transform:translateY(-50px) rotate(20deg);}
-  100%{transform:translateY(-200px) rotate(360deg);opacity:0;}
+  100%{transform:translateY(-220px) rotate(360deg);opacity:0;}
+}
+
+/* sparkle hearts */
+.sparkle{
+  position:absolute;
+  font-size:18px;
+  animation:sparkle 1s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes sparkle{
+  0%{transform:scale(0) translateY(0);opacity:1;}
+  100%{transform:scale(1.4) translateY(-80px);opacity:0;}
 }
 
 /* card */
@@ -84,7 +98,7 @@ button:hover{transform:scale(1.15);}
   color:#ff4d88;
   position:absolute;
   top:310px;
-  left:150px; /* start near Yes */
+  left:150px;
 }
 
 #page2{display:none;}
@@ -97,10 +111,12 @@ button:hover{transform:scale(1.15);}
   font-size:14px;
   color:#ff6fa5;
 }
+
 img{
   width:230px;
   margin-top:10px;
   border-radius:20px;
+  box-shadow:0 10px 30px rgba(255,77,136,0.4);
 }
 
 .explode{
@@ -120,7 +136,7 @@ img{
 <div class="card" id="page1">
   <div class="pookie">🐻‍❄️💗</div>
   <h2 id="typeText"></h2>
-  <button id="yes" onclick="showLove()">YESSS🥹💞</button>
+  <button id="yes" onclick="showLove(event)">YESSS🥹💞</button>
   <button id="no" onmouseover="moveNo()">NO😳</button>
 </div>
 
@@ -136,26 +152,25 @@ img{
     my always, my constant💞<br>
     my “I choose you” in every universe 🌍✨
   </p>
-  <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
+  <!-- FIXED GIF -->
+  <img src="https://i.giphy.com/26FLdmIp6wJr91JAI.gif" alt="love gif">
 </div>
 
-<!-- floating emojis -->
 <script>
+/* floating background emojis */
 const emojis=["💗","💖","💕","💘","🥰","😚","🎀","💝","🌸","🐻","🫶"];
 for(let i=0;i<40;i++){
   let e=document.createElement("div");
   e.className="emoji";
   e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+"%";
-  e.style.top=Math.random()*100+"%"; // start anywhere on page
+  e.style.top=Math.random()*100+"%";
   e.style.fontSize=(15+Math.random()*20)+"px";
   e.style.animationDelay=(Math.random()*6)+"s";
   e.style.opacity=(0.5+Math.random()*0.5);
   document.body.appendChild(e);
 }
-</script>
 
-<script>
 /* typewriter */
 const text="Aukareeyyy🥹💞\nYou are my today,\nmy tomorrow,\nand my alwaysssss 🫠💗";
 let i=0;
@@ -185,8 +200,21 @@ function moveNo(){
   noBtn.style.top=Math.random()*maxY+"px";
 }
 
-/* show page 2 */
-function showLove(){
+/* sparkles + page switch */
+function showLove(e){
+  const x=e.clientX;
+  const y=e.clientY;
+
+  for(let i=0;i<25;i++){
+    const s=document.createElement("div");
+    s.className="sparkle";
+    s.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+    s.style.left=(x+Math.random()*40-20)+"px";
+    s.style.top=(y+Math.random()*40-20)+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+  }
+
   const page1=document.getElementById("page1");
   const page2=document.getElementById("page2");
   page1.classList.add("explode");
@@ -200,10 +228,3 @@ function showLove(){
 
 </body>
 </html>
-
-
-
-
-
-
-
